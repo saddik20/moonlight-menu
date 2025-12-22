@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight - Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Montserrat:wght@300;400;500&family=Noto+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--black:#0a0a0a;--black-light:#1a1a1a;--gold:#d4af37;--gold-light:#e8c867;--cream:#f5f0e6;--orange:#f5a623}
+        html{scroll-behavior:smooth}
+        body{background:var(--black);font-family:'Montserrat','Noto Sans Arabic',sans-serif;color:var(--cream);line-height:1.6;min-height:100vh}
+        .header{text-align:center;padding:40px 20px 30px;position:sticky;top:0;background:linear-gradient(to bottom,var(--black) 0%,var(--black) 80%,transparent 100%);z-index:100}
+        .brand-name{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:500;color:var(--gold);letter-spacing:.08em;margin-bottom:5px}
+        .brand-subtitle{font-size:.7rem;color:var(--cream);letter-spacing:.2em;text-transform:uppercase;font-weight:300;opacity:.7}
+        .category-nav{display:flex;gap:8px;padding:15px 20px;overflow-x:auto;scrollbar-width:none;position:sticky;top:100px;background:var(--black);z-index:99;border-bottom:1px solid rgba(212,175,55,.2)}
+        .category-nav::-webkit-scrollbar{display:none}
+        .nav-btn{flex-shrink:0;padding:10px 18px;background:transparent;border:1px solid rgba(212,175,55,.4);color:var(--cream);font-family:'Montserrat',sans-serif;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .3s ease;border-radius:2px}
+        .nav-btn:hover,.nav-btn.active{background:var(--gold);color:var(--black);border-color:var(--gold)}
+        .menu-content{padding:20px;max-width:600px;margin:0 auto}
+        .category-section{margin-bottom:50px}
+        .category-header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px;padding-bottom:15px;border-bottom:1px solid rgba(212,175,55,.3)}
+        .category-left{display:flex;align-items:center;gap:12px}
+        .category-icon{font-size:1.5rem}
+        .category-title{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);font-weight:500}
+        .category-title-ar{font-family:'Noto Sans Arabic',sans-serif;font-size:1.3rem;color:var(--gold);font-weight:500}
+        .menu-item{display:flex;justify-content:space-between;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+        .menu-item:last-child{border-bottom:none}
+        .item-details{flex:1;padding-right:15px}
+        .item-names{display:flex;flex-direction:column;gap:3px;margin-bottom:5px}
+        .item-name-fr{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--cream);font-weight:500}
+        .item-name-ar{font-family:'Noto Sans Arabic',sans-serif;font-size:.95rem;color:var(--gold-light);direction:rtl}
+        .item-name-highlight{background:var(--orange);color:var(--black);padding:3px 10px;font-family:'Montserrat',sans-serif;font-size:.75rem;font-weight:500;display:inline-block;margin-bottom:4px}
+        .item-description{font-size:.7rem;color:rgba(245,240,230,.5);font-weight:300;line-height:1.4;margin-top:4px}
+        .item-price{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);font-weight:500;white-space:nowrap}
+        .subcategory{margin-bottom:25px}
+        .subcategory-title{display:flex;justify-content:space-between;align-items:center;font-size:.7rem;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;padding:8px 12px;border-left:2px solid var(--orange);border-right:2px solid var(--orange);background:rgba(245,166,35,.05)}
+        .subcategory-title-ar{font-family:'Noto Sans Arabic',sans-serif;letter-spacing:0;text-transform:none}
+        .plates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+        .plate-card{background:var(--black-light);padding:15px 12px;text-align:center;border:1px solid rgba(212,175,55,.2)}
+        .plate-name-fr{font-family:'Playfair Display',serif;font-size:.95rem;color:var(--cream);margin-bottom:3px}
+        .plate-name-ar{font-family:'Noto Sans Arabic',sans-serif;font-size:.85rem;color:var(--gold-light);direction:rtl;margin-bottom:6px}
+        .plate-price{font-size:.95rem;color:var(--gold);margin-bottom:8px}
+        .plate-desc{font-size:.6rem;color:rgba(245,240,230,.5);line-height:1.3}
+        .menu-footer{text-align:center;padding:40px 20px 60px;border-top:1px solid rgba(212,175,55,.2);margin-top:30px}
+        .footer-tagline{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);font-style:italic;opacity:.7}
+        .back-btn{display:inline-block;margin-top:20px;padding:12px 30px;border:1px solid var(--gold);color:var(--cream);text-decoration:none;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;transition:all .3s ease}
+        .back-btn:hover{background:var(--gold);color:var(--black)}
+        @media(max-width:400px){.plates-grid{grid-template-columns:1fr}.category-header{flex-direction:column;align-items:flex-start;gap:8px}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 class="brand-name">Moonlight</h1>
+        <p class="brand-subtitle">restaurant & coffee</p>
+    </header>
+    <nav class="category-nav">
+        <button class="nav-btn active" onclick="scrollToSection('breakfast')">Petit-déjeuner</button>
+        <button class="nav-btn" onclick="scrollToSection('hot-drinks')">Boissons</button>
+        <button class="nav-btn" onclick="scrollToSection('lunch-dinner')">Plats</button>
+        <button class="nav-btn" onclick="scrollToSection('burgers')">Burgers</button>
+        <button class="nav-btn" onclick="scrollToSection('drinks')">Jus</button>
+        <button class="nav-btn" onclick="scrollToSection('desserts')">Desserts</button>
+    </nav>
+    <main class="menu-content">
+        <section id="breakfast" class="category-section">
+            <div class="category-header"><div class="category-left"><span class="category-icon">🍳</span><h2 class="category-title">Petit-déjeuner</h2></div><h2 class="category-title-ar">فطور</h2></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">MAROCAIN / مغربي</span></div><div class="item-description">Thé ou café, rghifa, harsha, fromage, fromage arabe, amlou, petit jus d'orange<br>شاي أو قهوة، رغيفة، حرشة، فرماج، جبن عربي، أملو، عصير برتقال صغير</div></div><div class="item-price">30 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">NORMAL / سبسيال</span></div><div class="item-description">Thé ou café, œuf, fromage, fromage arabe, mortadelle<br>شاي أو قهوة، بيضة، فرماج، جبن عربي، مورتاديال</div></div><div class="item-price">23 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">FASSI / فاسي</span></div><div class="item-description">Thé ou café, khlie, œuf, olives, huile d'olive<br>شاي أو قهوة، خليع، بيضة، زيتون</div></div><div class="item-price">26 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">FASSI COMPLET / فاسي كامل</span></div><div class="item-description">Thé ou café, khlie, deux œufs, fromage, Kiri, fromage arabe, huile d'olive, olives, Danone, petit jus d'orange, eau minérale<br>شاي أو قهوة، خليع، بيضتان، فرماج، كيري، جبن عربي، زيتون، زيت الزيتون، دانون، عصير برتقال، ماء معدني</div></div><div class="item-price">45 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">CHAMALI / شمالي</span></div><div class="item-description">Thé ou café, œuf, fromage, dinde fumée, mortadelle, fromage arabe, huile d'olive, olives, petit jus d'orange<br>شاي أو قهوة، بيضة، فرماج، ديك رومي مدخن، مورتديال، جبن عربي، زيت الزيتون، زيتون، عصير برتقال صغير</div></div><div class="item-price">30 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">SPECIAL / سبسيال كامل</span></div><div class="item-description">Thé ou café, œuf, Kiri, mortadelle, fromage arabe, fromage hollandais, huile d'olive, olives, eau minérale, dinde fumée, petit jus d'orange<br>شاي أو قهوة، بيضة، كيري، مورتديال، جبن عربي، جبن هولندي، زيت الزيتون، زيتون، ماء معدني، ديك رومي مدخن، عصير برتقال صغير</div></div><div class="item-price">40 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">ANGLAIS / إنجليزي</span></div><div class="item-description">Thé ou café, deux œufs, saucisse, champignons, haricots rouges, tomates cerises, concombre, laitue, olives, fromage<br>شاي أو قهوة، بيضة، نقانق لحم، فطر، فاصوليا حمراء، طماطم عنب، خيار، خس، زيتون</div></div><div class="item-price">49 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">FRANÇAIS / فرنسي</span></div><div class="item-description">Café latte ou thé, croissant, 2 tranches de baguette, Danone, confiture, beurre, petit jus d'orange<br>كافي لاتيه أو شاي، كرواسون، شريحتان من الباغيت، دانون، مربى الفاكهة، زبدة، عصير برتقال صغير</div></div><div class="item-price">35 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">ENFANT / طفل</span></div><div class="item-description">Cornflakes, lait au chocolat, yaourt, fruits<br>كورن فليكس، حليب بالشوكولاتة، ياغورت، فواكه</div></div><div class="item-price">18 dh</div></div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-highlight">TOAST AVOCAT / توست بالأفوكادو</span></div><div class="item-description">Toasts à l'avocat, œufs sur le dessus, huile d'olive et assaisonnement<br>توست أفوكادو، بيض على الوجه، رشة زيت زيتون وتوابل</div></div><div class="item-price">20 dh</div></div>
+        </section>
+        <section id="hot-drinks" class="category-section">
+            <div class="category-header"><div class="category-left"><span class="category-icon">☕</span><h2 class="category-title">Boissons Chaudes</h2></div><h2 class="category-title-ar">مشروبات ساخنة</h2></div>
+            <div class="subcategory"><div class="subcategory-title"><span>Café</span><span class="subcategory-title-ar">قهوة</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Café Noir / قهوة سوداء</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Café au Lait / قهوة بالحليب</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Nescafé / نسكافيه</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Lait au Chocolat / حليب الشوكولاتة</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Café Americano / قهوة أمريكية</span></div></div><div class="item-price">14 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Café Latte / كافيه لاتيه</span></div></div><div class="item-price">15 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Cappuccino / كابوتشينو</span></div></div><div class="item-price">15 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Iced Americano / قهوة أمريكية مثلجة</span></div></div><div class="item-price">20 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Iced Coffee / قهوة مثلجة</span></div><div class="item-description">Chocolat ou caramel / مع الشوكولاتة أو الكراميل</div></div><div class="item-price">22 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Thé</span><span class="subcategory-title-ar">الشاي</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Thé Marocain / أتاي مغربي</span></div></div><div class="item-price">10 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Thé Noir / شاي أسود</span></div></div><div class="item-price">10 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Thé Louisa / شاي لويزة</span></div></div><div class="item-price">10 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Lipton / ليبتون بالماء</span></div></div><div class="item-price">10 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Thé Tisane / شاي بالأعشاب</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Thé Citron & Gingembre / شاي بالليمون والزنجبيل</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Luisa au Lait / حليب بالويزا</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Lipton au Lait / ليبطون بالحليب</span></div></div><div class="item-price">12 dh</div></div>
+            </div>
+        </section>
+        <section id="lunch-dinner" class="category-section">
+            <div class="category-header"><div class="category-left"><span class="category-icon">🍕</span><h2 class="category-title">Menu des Plats</h2></div><h2 class="category-title-ar">قائمة الأطباق</h2></div>
+            <div class="subcategory"><div class="subcategory-title"><span>Pizza</span><span class="subcategory-title-ar">بيتزا</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pizza Margherita / بيتزا مارجريتا</span></div></div><div class="item-price">30 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pizza Végétarienne / بيتزا بالخضرة</span></div></div><div class="item-price">35 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pizza au Poulet / بيتزا بالدجاج</span></div></div><div class="item-price">40 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pizza Viande Hachée / بيتزا بكفتة</span></div></div><div class="item-price">45 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pizza Fruits de Mer / بيتزا بالفواكه البحرية</span></div></div><div class="item-price">50 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pizza Quatre Saisons / بيتزا أربع فصول</span></div></div><div class="item-price">50 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Pâtes</span><span class="subcategory-title-ar">معكرونة</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Spaghetti Sauce Tomate / سباغيتي بصوص الطماطم</span></div></div><div class="item-price">30 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Spaghetti Bolognaise / سباغيتي بولونيز</span></div></div><div class="item-price">40 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Spaghetti au Poulet / سباغيتي بالدجاج</span></div></div><div class="item-price">35 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Spaghetti Fruits de Mer / سباغيتي بالفواكه البحرية</span></div></div><div class="item-price">50 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Pasticho</span><span class="subcategory-title-ar">باستيشو</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pasticho au Poulet / باستيشو بالدجاج</span></div></div><div class="item-price">35 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pasticho Viande Hachée / باستيشو بكفتة</span></div></div><div class="item-price">40 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pasticho Fruits de Mer / باستيشو بالفواكه البحرية</span></div></div><div class="item-price">50 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Tajine</span><span class="subcategory-title-ar">طواجن</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Tajine Viande Hachée / طاجن كفته</span></div></div><div class="item-price">50 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Tajine Crevette Tomate / طاجين القمرون بصلصة الطماطم</span></div></div><div class="item-price">60 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Tajine Pil Pil / طاجن بيل بيل</span></div></div><div class="item-price">70 dh</div></div>
+            </div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Salade de Fruits / سلطة فواكه</span></div></div><div class="item-price">35 dh</div></div>
+        </section>
+        <section id="burgers" class="category-section">
+            <div class="category-header"><div class="category-left"><span class="category-icon">🍔</span><h2 class="category-title">Burgers & Plus</h2></div><h2 class="category-title-ar">برجر والمزيد</h2></div>
+            <div class="subcategory"><div class="subcategory-title"><span>Burgers</span><span class="subcategory-title-ar">برجر</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Classic Cheeseburger</span></div></div><div class="item-price">45 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Double Cheeseburger</span></div></div><div class="item-price">60 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Chicken Cheese Burger</span></div></div><div class="item-price">40 dh</div></div>
+            </div>
+            <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Shawarma Poulet / شاورما دجاج</span></div></div><div class="item-price">35 dh</div></div>
+            <div class="subcategory"><div class="subcategory-title"><span>Panini</span><span class="subcategory-title-ar">بانيني</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Poulet / دجاج</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Thon / تونة</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Kefta / كفتة</span></div></div><div class="item-price">30 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Mixte / مختلط</span></div></div><div class="item-price">35 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Fruits de Mer / فواكه البحر</span></div></div><div class="item-price">40 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Tacos</span><span class="subcategory-title-ar">تاكوس</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Poulet / دجاج</span></div></div><div class="item-price">35 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Kefta / كفتة</span></div></div><div class="item-price">40 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Mixte / مختلط</span></div></div><div class="item-price">45 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Fruits de Mer / فواكه البحر</span></div></div><div class="item-price">50 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Plats</span><span class="subcategory-title-ar">أطباق</span></div>
+                <div class="plates-grid">
+                    <div class="plate-card"><div class="plate-name-fr">Plat Kefta</div><div class="plate-name-ar">طبق كفتة</div><div class="plate-price">50 dh</div><div class="plate-desc">Kefta grillé, Riz, Frites</div></div>
+                    <div class="plate-card"><div class="plate-name-fr">Plat Poulet</div><div class="plate-name-ar">طبق دجاج</div><div class="plate-price">45 dh</div><div class="plate-desc">Poulet grillé, Riz, Frites</div></div>
+                    <div class="plate-card"><div class="plate-name-fr">Plat Saucisse</div><div class="plate-name-ar">طبق نقانق</div><div class="plate-price">50 dh</div><div class="plate-desc">Saucisse, Riz, Frites</div></div>
+                    <div class="plate-card"><div class="plate-name-fr">Plat Mix</div><div class="plate-name-ar">طبق مشكل</div><div class="plate-price">60 dh</div><div class="plate-desc">Poulet, Kefta, Saucisse, Riz, Frites</div></div>
+                </div>
+            </div>
+            <div class="menu-item" style="margin-top:15px"><div class="item-details"><div class="item-names"><span class="item-name-fr">Frites / بطاطس مقلية</span></div></div><div class="item-price">10 dh</div></div>
+        </section>
+        <section id="drinks" class="category-section">
+            <div class="category-header"><div class="category-left"><span class="category-icon">🥤</span><h2 class="category-title">Jus & Boissons</h2></div><h2 class="category-title-ar">عصائر ومشروبات</h2></div>
+            <div class="subcategory"><div class="subcategory-title"><span>Jus Frais</span><span class="subcategory-title-ar">عصائر طازجة</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus d'Orange / عصير برتقال</span></div></div><div class="item-price">15 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus de Pomme / عصير تفاح</span></div></div><div class="item-price">15 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus Patido / عصير تفاح و موز</span></div></div><div class="item-price">18 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus d'Avocat / عصير أفوكا</span></div></div><div class="item-price">20 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus de Citron / عصير ليمون</span></div></div><div class="item-price">20 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus Panaché / عصير باناشي</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus d'Ananas / عصير أناناس</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Jus de Mangue / عصير المانجو</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Za3za3 / زعزاع</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Fruit du Dragon / فاكهة التنين</span></div></div><div class="item-price">30 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Mojito</span><span class="subcategory-title-ar">موهيتو</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Mojito Virgin / موهيتو فريج</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Mojito Fraise / موهيتو الفراولة</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Mojito Myrtille / موهيتو التوت الأزرق</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Mojito Energy / موهيتو مشروب الطاقة</span></div></div><div class="item-price">35 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Soda & Eau</span><span class="subcategory-title-ar">مونادا وماء</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Soda / مونادا</span></div></div><div class="item-price">12 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Eau Petit / ماء صغير</span></div></div><div class="item-price">3 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Eau Moyen / ماء متوسط</span></div></div><div class="item-price">5 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Eau Grand / ماء كبير</span></div></div><div class="item-price">10 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Eau Gazeuse / ماء غازي</span></div></div><div class="item-price">12 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Energy Drink</span><span class="subcategory-title-ar">مشروبات الطاقة</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Regular Energy Drink</span></div></div><div class="item-price">15 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Red Bull</span></div></div><div class="item-price">30 dh</div></div>
+            </div>
+        </section>
+        <section id="desserts" class="category-section">
+            <div class="category-header"><div class="category-left"><span class="category-icon">🥞</span><h2 class="category-title">Desserts</h2></div><h2 class="category-title-ar">حلويات</h2></div>
+            <div class="subcategory"><div class="subcategory-title"><span>Crêpes</span><span class="subcategory-title-ar">كريب</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Crêpe Classique / كريب كلاسيكي</span></div><div class="item-description">Avec beurre et miel / يُقدم مع الزبدة والعسل</div></div><div class="item-price">22 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Crêpe Nutella / كريب نوتيلا</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Crêpe Nutella & Banane / كريب نوتيلا و موز</span></div></div><div class="item-price">28 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Crêpe Nutella & Kiwi / كريب نوتيلا و كيوي</span></div></div><div class="item-price">33 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Gaufres</span><span class="subcategory-title-ar">وافل</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Gaufre Classic / وافل كلاسيكي</span></div><div class="item-description">Avec beurre et miel / يُقدم مع الزبدة والعسل</div></div><div class="item-price">22 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Gaufre Nutella / وافل نوتيلا</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Gaufre Nutella & Banane / وافل نوتيلا و موز</span></div></div><div class="item-price">28 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Pancakes</span><span class="subcategory-title-ar">بان كيك</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pancake Classique / بان كيك كلاسيكي</span></div><div class="item-description">Avec beurre et miel / يُقدم مع الزبدة والعسل</div></div><div class="item-price">22 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pancake Nutella / بان كيك نوتيلا</span></div></div><div class="item-price">25 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Pancake Nutella & Banane / بان كيك نوتيلا والموز</span></div></div><div class="item-price">28 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Autres</span><span class="subcategory-title-ar">أخرى</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Cake</span></div></div><div class="item-price">15 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Mille Feuille</span></div></div><div class="item-price">10 dh</div></div>
+            </div>
+            <div class="subcategory"><div class="subcategory-title"><span>Suppléments</span><span class="subcategory-title-ar">الإضافات</span></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">Oreo</span></div></div><div class="item-price">5 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-names"><span class="item-name-fr">KitKat</span></div></div><div class="item-price">5 dh</div></div>
+            </div>
+        </section>
+    </main>
+    <footer class="menu-footer">
+        <p class="footer-tagline">Coffee. Comfort. Cuisine.</p>
+        <a href="index.html" class="back-btn">← Changer la langue / تغيير اللغة</a>
+    </footer>
+    <script>
+        function scrollToSection(id){const s=document.getElementById(id);const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight;window.scrollTo({top:s.offsetTop-h-10,behavior:'smooth'});document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
+        window.addEventListener('scroll',()=>{const ss=document.querySelectorAll('.category-section');const bs=document.querySelectorAll('.nav-btn');const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight+50;let c='';ss.forEach(s=>{if(scrollY>=s.offsetTop-h)c=s.getAttribute('id')});bs.forEach(b=>{b.classList.remove('active');if(b.onclick.toString().includes(c))b.classList.add('active')})})
+    </script>
+</body>
+</html>
