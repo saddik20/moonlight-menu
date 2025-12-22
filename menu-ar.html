@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight - القائمة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Noto+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--gold:#d4af37;--gold-dark:#b8962e;--white:#ffffff;--off-white:#f7f7f7;--light-gray:#f1f1f1;--medium-gray:#e0e0e0;--text-dark:#1e1e1e;--text-medium:#4a4a4a}
+        html{scroll-behavior:smooth}
+        body{background:var(--off-white);font-family:'Noto Sans Arabic',sans-serif;color:var(--text-dark);line-height:1.8;min-height:100vh;direction:rtl}
+        .header{background:var(--white);text-align:center;padding:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+        .header-content{display:flex;align-items:center;justify-content:center;gap:12px}
+        .back-arrow{position:absolute;right:15px;top:50%;transform:translateY(-50%);color:var(--gold);text-decoration:none;font-size:1.5rem;padding:10px}
+        .moon-icon-small{width:35px;height:35px}
+        .moon-icon-small svg{width:100%;height:100%}
+        .brand-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;color:var(--gold)}
+        .brand-subtitle{font-size:.65rem;color:#6b6b6b;letter-spacing:.2em;text-transform:uppercase;margin-top:2px}
+        .category-nav{display:flex;gap:10px;padding:15px 20px;overflow-x:auto;scrollbar-width:none;background:var(--white);border-bottom:1px solid var(--medium-gray);position:sticky;top:85px;z-index:99;flex-direction:row-reverse}
+        .category-nav::-webkit-scrollbar{display:none}
+        .nav-btn{flex-shrink:0;padding:10px 20px;background:var(--light-gray);border:none;color:var(--text-medium);font-family:'Noto Sans Arabic',sans-serif;font-size:.9rem;font-weight:500;cursor:pointer;transition:all .3s ease;border-radius:25px}
+        .nav-btn:hover,.nav-btn.active{background:var(--gold);color:var(--white)}
+        .menu-content{padding:20px;max-width:800px;margin:0 auto}
+        .category-section{margin-bottom:40px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 15px rgba(0,0,0,0.06)}
+        .category-header{position:relative;height:140px;overflow:hidden}
+        .category-image{width:100%;height:100%;object-fit:cover}
+        .category-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.6));display:flex;align-items:flex-end;padding:20px}
+        .category-title{font-family:'Noto Sans Arabic',sans-serif;font-size:1.8rem;color:var(--white);font-weight:700}
+        .category-content{padding:20px}
+        .subcategory{margin-bottom:25px}
+        .subcategory:last-child{margin-bottom:0}
+        .subcategory-title{font-family:'Noto Sans Arabic',sans-serif;font-size:.95rem;font-weight:700;color:var(--gold);margin-bottom:15px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block}
+        .menu-item{display:flex;justify-content:space-between;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--light-gray)}
+        .menu-item:last-child{border-bottom:none}
+        .item-details{flex:1;padding-left:15px}
+        .item-name{font-family:'Noto Sans Arabic',sans-serif;font-size:1.05rem;font-weight:600;color:var(--text-dark);margin-bottom:4px}
+        .item-name-highlight{display:inline-block;background:var(--gold);color:var(--white);padding:4px 12px;font-family:'Noto Sans Arabic',sans-serif;font-size:.9rem;font-weight:700;border-radius:4px;margin-bottom:8px}
+        .item-description{font-size:.9rem;color:var(--text-medium);font-weight:400;line-height:1.7}
+        .item-price{font-family:'Noto Sans Arabic',sans-serif;font-size:1rem;font-weight:700;color:var(--gold-dark);white-space:nowrap}
+        .plates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+        .plate-card{background:var(--light-gray);padding:20px 15px;text-align:center;border-radius:12px}
+        .plate-name{font-family:'Noto Sans Arabic',sans-serif;font-size:1rem;font-weight:600;color:var(--text-dark);margin-bottom:8px}
+        .plate-price{font-size:1rem;font-weight:700;color:var(--gold-dark);margin-bottom:10px}
+        .plate-desc{font-size:.85rem;color:#6b6b6b;line-height:1.5}
+        .menu-footer{text-align:center;padding:30px 20px 40px;background:var(--white);margin-top:20px}
+        .footer-icons{display:flex;justify-content:center;gap:25px;margin-bottom:20px}
+        .footer-icon{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border:2px solid var(--gold);border-radius:50%;color:var(--gold);transition:all .3s ease;text-decoration:none}
+        .footer-icon:hover{background:var(--gold);color:var(--white)}
+        .footer-icon svg{width:20px;height:20px;fill:currentColor}
+        .back-btn{display:inline-block;padding:12px 30px;background:var(--gold);color:var(--white);text-decoration:none;font-size:.9rem;font-weight:600;border-radius:25px;transition:all .3s ease}
+        .back-btn:hover{background:var(--gold-dark);transform:translateY(-2px)}
+        @media(max-width:500px){.plates-grid{grid-template-columns:1fr}.category-header{height:120px}.category-title{font-size:1.5rem}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-arrow">→</a>
+        <div class="header-content">
+            <div class="moon-icon-small"><svg viewBox="0 0 100 100" fill="none"><path d="M50 5C25.1 5 5 25.1 5 50s20.1 45 45 45c6.9 0 13.5-1.6 19.4-4.4C55.6 85.8 45 72.3 45 56.5c0-19.9 16.1-36 36-36 2.5 0 4.9.3 7.2.7C81.5 12.3 66.8 5 50 5z" fill="#d4af37"/></svg></div>
+            <div><h1 class="brand-name">Moonlight</h1><p class="brand-subtitle">مطعم و مقهى</p></div>
+        </div>
+    </header>
+    <nav class="category-nav">
+        <button class="nav-btn active" onclick="scrollToSection('breakfast')">فطور</button>
+        <button class="nav-btn" onclick="scrollToSection('hot-drinks')">مشروبات ساخنة</button>
+        <button class="nav-btn" onclick="scrollToSection('lunch-dinner')">غداء وعشاء</button>
+        <button class="nav-btn" onclick="scrollToSection('burgers')">برجر</button>
+        <button class="nav-btn" onclick="scrollToSection('drinks')">عصائر</button>
+        <button class="nav-btn" onclick="scrollToSection('desserts')">حلويات</button>
+    </nav>
+    <main class="menu-content">
+        <section id="breakfast" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=800&q=80" alt="فطور" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🍳 فطور</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">مغربي</div><div class="item-description">شاي أو قهوة، رغيفة، حرشة، فرماج، جبن عربي، أملو، عصير برتقال صغير</div></div><div class="item-price">30 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">سبسيال</div><div class="item-description">شاي أو قهوة، بيضة، فرماج، جبن عربي، مورتاديلا</div></div><div class="item-price">23 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">فاسي</div><div class="item-description">شاي أو قهوة، خليع، بيضة، زيتون، زيت الزيتون</div></div><div class="item-price">26 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">فاسي كامل</div><div class="item-description">شاي أو قهوة، خليع، بيضتان، فرماج، كيري، جبن عربي، زيت الزيتون، زيتون، دانون، عصير برتقال صغير، ماء معدني</div></div><div class="item-price">45 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">شمالي</div><div class="item-description">شاي أو قهوة، بيضة، فرماج، ديك رومي مدخن، مورتاديلا، جبن عربي، زيت الزيتون، زيتون، عصير برتقال صغير</div></div><div class="item-price">30 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">سبسيال كامل</div><div class="item-description">شاي أو قهوة، بيضة، كيري، مورتاديلا، جبن عربي، جبن هولندي، زيت الزيتون، زيتون، ماء معدني، ديك رومي مدخن، عصير برتقال صغير</div></div><div class="item-price">40 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">إنجليزي</div><div class="item-description">شاي أو قهوة، بيضتان، نقانق، فطر، فاصوليا حمراء، طماطم كرزية، خيار، خس، زيتون، جبن</div></div><div class="item-price">49 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">فرنسي</div><div class="item-description">كافي لاتيه أو شاي، كرواسون، شريحتان من الباغيت، دانون، مربى، زبدة، عصير برتقال صغير</div></div><div class="item-price">35 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">أطفال</div><div class="item-description">كورن فليكس، حليب بالشوكولاتة، ياغورت، فواكه</div></div><div class="item-price">18 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">توست بالأفوكادو</div><div class="item-description">توست أفوكادو، بيض على الوجه، رشة زيت زيتون وتوابل</div></div><div class="item-price">20 dh</div></div>
+            </div>
+        </section>
+        <section id="hot-drinks" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" alt="مشروبات ساخنة" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">☕ مشروبات ساخنة</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">قهوة</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">إسبريسو</div></div><div class="item-price">14 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">دوبيو (إسبريسو مزدوج)</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كورتادو</div></div><div class="item-price">14 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">أمريكانو</div></div><div class="item-price">14 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كافيه لاتيه</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كابوتشينو</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">فلات وايت</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">نسكافيه</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">شوكولاتة ساخنة</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">أمريكانو مثلج</div></div><div class="item-price">20 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">قهوة مثلجة</div><div class="item-description">شوكولاتة أو كراميل</div></div><div class="item-price">22 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">شاي</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">أتاي مغربي بالنعناع</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">شاي أسود</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">شاي بالأعشاب</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">شاي لويزة</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">شاي ليبتون</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">شاي بالزنجبيل والليمون</div></div><div class="item-price">12 dh</div></div>
+                </div>
+            </div>
+        </section>
+        <section id="lunch-dinner" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80" alt="غداء وعشاء" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🍕 غداء وعشاء</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">بيتزا</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">مارغريتا</div></div><div class="item-price">30 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بيتزا بالخضار</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بيتزا بالدجاج</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بيتزا بالكفتة</div></div><div class="item-price">45 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بيتزا بفواكه البحر</div></div><div class="item-price">50 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بيتزا أربع فصول</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">معكرونة</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">سباغيتي بصلصة الطماطم</div></div><div class="item-price">30 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">سباغيتي بولونيز</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">سباغيتي بالدجاج</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">سباغيتي بفواكه البحر</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">باستيشو</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">باستيشو بالدجاج</div><div class="item-description">مخبوز بالفرن مع دجاج، بطاطس مقلية، بشاميل وجبن</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">باستيشو بالكفتة</div><div class="item-description">مخبوز بالفرن مع كفتة، بطاطس مقلية، بشاميل وجبن</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">باستيشو بفواكه البحر</div><div class="item-description">مخبوز بالفرن مع فواكه البحر، بطاطس مقلية، بشاميل وجبن</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">طواجن</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">طاجن كفتة</div><div class="item-description">كفتة متبلة مطهية ببطء مع التوابل العطرية</div></div><div class="item-price">50 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">طاجن القمرون</div><div class="item-description">قمرون مطهي في صلصة طماطم بالتوابل المغربية</div></div><div class="item-price">60 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">طاجن بيل بيل</div><div class="item-description">قمرون بالثوم والتوابل والبقدونس وزيت الزيتون</div></div><div class="item-price">70 dh</div></div>
+                </div>
+                <div class="menu-item"><div class="item-details"><div class="item-name">سلطة فواكه</div></div><div class="item-price">35 dh</div></div>
+            </div>
+        </section>
+        <section id="burgers" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80" alt="برجر" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🍔 برجر والمزيد</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">برجر</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">تشيز برجر كلاسيك</div></div><div class="item-price">45 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">دبل تشيز برجر</div></div><div class="item-price">60 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">تشيكن برجر</div></div><div class="item-price">40 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">شاورما</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">شاورما دجاج</div></div><div class="item-price">35 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">بانيني</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">دجاج</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">تونة</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كفتة</div></div><div class="item-price">30 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">مشكل</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">فواكه البحر</div></div><div class="item-price">40 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">تاكوس</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">دجاج</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كفتة</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">مشكل</div></div><div class="item-price">45 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">فواكه البحر</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">أطباق</h3>
+                    <div class="plates-grid">
+                        <div class="plate-card"><div class="plate-name">طبق كفتة</div><div class="plate-price">50 dh</div><div class="plate-desc">كفتة مشوية مع أرز وبطاطس مقلية</div></div>
+                        <div class="plate-card"><div class="plate-name">طبق دجاج</div><div class="plate-price">45 dh</div><div class="plate-desc">دجاج مشوي مع أرز وبطاطس مقلية</div></div>
+                        <div class="plate-card"><div class="plate-name">طبق نقانق</div><div class="plate-price">50 dh</div><div class="plate-desc">نقانق مشوية مع أرز وبطاطس مقلية</div></div>
+                        <div class="plate-card"><div class="plate-name">طبق مشكل</div><div class="plate-price">60 dh</div><div class="plate-desc">دجاج، كفتة، نقانق مع أرز وبطاطس</div></div>
+                    </div>
+                </div>
+                <div class="menu-item" style="margin-top:20px"><div class="item-details"><div class="item-name">بطاطس مقلية</div></div><div class="item-price">10 dh</div></div>
+            </div>
+        </section>
+        <section id="drinks" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?w=800&q=80" alt="عصائر" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🥤 عصائر ومشروبات</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">عصائر طازجة</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير برتقال</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير تفاح</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير موز وتفاح</div></div><div class="item-price">18 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير موز</div></div><div class="item-price">18 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير أفوكادو</div></div><div class="item-price">20 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير ليمون</div></div><div class="item-price">20 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير مشكل</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير أناناس</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">عصير مانجو</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">فاكهة التنين</div></div><div class="item-price">30 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">موهيتو</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">موهيتو فيرجن</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">موهيتو فراولة</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">موهيتو توت أزرق</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">موهيتو مشروب طاقة</div></div><div class="item-price">35 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">مشروبات غازية وماء</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">مشروب غازي</div><div class="item-description">كوكا، كوكا لايت، سبرايت، هاواي، شويبس</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">ماء صغير</div></div><div class="item-price">3 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">ماء متوسط</div></div><div class="item-price">5 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">ماء كبير</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">ماء غازي</div></div><div class="item-price">12 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">مشروبات الطاقة</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">مشروب طاقة عادي</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">ريد بول</div></div><div class="item-price">30 dh</div></div>
+                </div>
+            </div>
+        </section>
+        <section id="desserts" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80" alt="حلويات" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🥞 حلويات</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">كريب</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كريب كلاسيكي</div><div class="item-description">يقدم مع الزبدة والعسل</div></div><div class="item-price">22 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كريب نوتيلا</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كريب نوتيلا وموز</div></div><div class="item-price">28 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كريب نوتيلا وكيوي</div></div><div class="item-price">33 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">وافل</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">وافل كلاسيكي</div><div class="item-description">يقدم مع الزبدة والعسل</div></div><div class="item-price">22 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">وافل نوتيلا</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">وافل نوتيلا وموز</div></div><div class="item-price">28 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">بان كيك</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بان كيك كلاسيكي</div><div class="item-description">يقدم مع الزبدة والعسل</div></div><div class="item-price">22 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بان كيك نوتيلا</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">بان كيك نوتيلا وموز</div></div><div class="item-price">28 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">حلويات أخرى</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كيك</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">ميل فوي</div></div><div class="item-price">10 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">إضافات</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">أوريو</div></div><div class="item-price">5 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">كيت كات</div></div><div class="item-price">5 dh</div></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="menu-footer">
+        <div class="footer-icons">
+            <a href="https://www.instagram.com/moonlight_chaouen?igsh=MTBudnpqYjVhZWNjcw%3D%3D&utm_source=qr" target="_blank" class="footer-icon" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="https://g.page/r/Ca-jEK-9Y0lBEBM/review" target="_blank" class="footer-icon" title="Google Review"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></a>
+            <a href="WIFI:T:WPA;S:MOONLIGHT_GUEST;P:FTMH8Unu;;" class="footer-icon" title="WiFi"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg></a>
+        </div>
+        <a href="index.html" class="back-btn">← تغيير اللغة</a>
+    </footer>
+    <script>
+        function scrollToSection(id){const s=document.getElementById(id);const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight;window.scrollTo({top:s.offsetTop-h-10,behavior:'smooth'});document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
+        window.addEventListener('scroll',()=>{const ss=document.querySelectorAll('.category-section');const bs=document.querySelectorAll('.nav-btn');const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight+50;let c='';ss.forEach(s=>{if(scrollY>=s.offsetTop-h)c=s.getAttribute('id')});bs.forEach(b=>{b.classList.remove('active');if(b.onclick.toString().includes(c))b.classList.add('active')})})
+    </script>
+</body>
+</html>

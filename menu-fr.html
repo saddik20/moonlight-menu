@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight - Menu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Lato:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--gold:#d4af37;--gold-dark:#b8962e;--white:#ffffff;--off-white:#f7f7f7;--light-gray:#f1f1f1;--medium-gray:#e0e0e0;--text-dark:#1e1e1e;--text-medium:#4a4a4a}
+        html{scroll-behavior:smooth}
+        body{background:var(--off-white);font-family:'Lato',sans-serif;color:var(--text-dark);line-height:1.6;min-height:100vh}
+        .header{background:var(--white);text-align:center;padding:20px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+        .header-content{display:flex;align-items:center;justify-content:center;gap:12px}
+        .back-arrow{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--gold);text-decoration:none;font-size:1.5rem;padding:10px}
+        .moon-icon-small{width:35px;height:35px}
+        .moon-icon-small svg{width:100%;height:100%}
+        .brand-name{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:500;color:var(--gold)}
+        .brand-subtitle{font-size:.65rem;color:#6b6b6b;letter-spacing:.2em;text-transform:uppercase;margin-top:2px}
+        .category-nav{display:flex;gap:10px;padding:15px 20px;overflow-x:auto;scrollbar-width:none;background:var(--white);border-bottom:1px solid var(--medium-gray);position:sticky;top:85px;z-index:99}
+        .category-nav::-webkit-scrollbar{display:none}
+        .nav-btn{flex-shrink:0;padding:10px 20px;background:var(--light-gray);border:none;color:var(--text-medium);font-family:'Lato',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;transition:all .3s ease;border-radius:25px}
+        .nav-btn:hover,.nav-btn.active{background:var(--gold);color:var(--white)}
+        .menu-content{padding:20px;max-width:800px;margin:0 auto}
+        .category-section{margin-bottom:40px;background:var(--white);border-radius:16px;overflow:hidden;box-shadow:0 2px 15px rgba(0,0,0,0.06)}
+        .category-header{position:relative;height:140px;overflow:hidden}
+        .category-image{width:100%;height:100%;object-fit:cover}
+        .category-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.6));display:flex;align-items:flex-end;padding:20px}
+        .category-title{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--white);font-weight:500}
+        .category-content{padding:20px}
+        .subcategory{margin-bottom:25px}
+        .subcategory:last-child{margin-bottom:0}
+        .subcategory-title{font-family:'Lato',sans-serif;font-size:.8rem;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;margin-bottom:15px;padding-bottom:8px;border-bottom:2px solid var(--gold);display:inline-block}
+        .menu-item{display:flex;justify-content:space-between;align-items:flex-start;padding:15px 0;border-bottom:1px solid var(--light-gray)}
+        .menu-item:last-child{border-bottom:none}
+        .item-details{flex:1;padding-right:15px}
+        .item-name{font-family:'Lato',sans-serif;font-size:1rem;font-weight:600;color:var(--text-dark);margin-bottom:4px}
+        .item-name-highlight{display:inline-block;background:var(--gold);color:var(--white);padding:4px 12px;font-family:'Lato',sans-serif;font-size:.85rem;font-weight:700;border-radius:4px;margin-bottom:8px}
+        .item-description{font-size:.9rem;color:var(--text-medium);font-weight:400;line-height:1.5}
+        .item-price{font-family:'Lato',sans-serif;font-size:1rem;font-weight:700;color:var(--gold-dark);white-space:nowrap}
+        .plates-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+        .plate-card{background:var(--light-gray);padding:20px 15px;text-align:center;border-radius:12px}
+        .plate-name{font-family:'Lato',sans-serif;font-size:1rem;font-weight:600;color:var(--text-dark);margin-bottom:8px}
+        .plate-price{font-size:1rem;font-weight:700;color:var(--gold-dark);margin-bottom:10px}
+        .plate-desc{font-size:.8rem;color:#6b6b6b;line-height:1.4}
+        .menu-footer{text-align:center;padding:30px 20px 40px;background:var(--white);margin-top:20px}
+        .footer-icons{display:flex;justify-content:center;gap:25px;margin-bottom:20px}
+        .footer-icon{width:45px;height:45px;display:flex;align-items:center;justify-content:center;border:2px solid var(--gold);border-radius:50%;color:var(--gold);transition:all .3s ease;text-decoration:none}
+        .footer-icon:hover{background:var(--gold);color:var(--white)}
+        .footer-icon svg{width:20px;height:20px;fill:currentColor}
+        .back-btn{display:inline-block;padding:12px 30px;background:var(--gold);color:var(--white);text-decoration:none;font-size:.85rem;font-weight:600;letter-spacing:.05em;border-radius:25px;transition:all .3s ease}
+        .back-btn:hover{background:var(--gold-dark);transform:translateY(-2px)}
+        @media(max-width:500px){.plates-grid{grid-template-columns:1fr}.category-header{height:120px}.category-title{font-size:1.5rem}}
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="index.html" class="back-arrow">←</a>
+        <div class="header-content">
+            <div class="moon-icon-small"><svg viewBox="0 0 100 100" fill="none"><path d="M50 5C25.1 5 5 25.1 5 50s20.1 45 45 45c6.9 0 13.5-1.6 19.4-4.4C55.6 85.8 45 72.3 45 56.5c0-19.9 16.1-36 36-36 2.5 0 4.9.3 7.2.7C81.5 12.3 66.8 5 50 5z" fill="#d4af37"/></svg></div>
+            <div><h1 class="brand-name">Moonlight</h1><p class="brand-subtitle">Restaurant & Café</p></div>
+        </div>
+    </header>
+    <nav class="category-nav">
+        <button class="nav-btn active" onclick="scrollToSection('breakfast')">Petit-déjeuner</button>
+        <button class="nav-btn" onclick="scrollToSection('hot-drinks')">Boissons Chaudes</button>
+        <button class="nav-btn" onclick="scrollToSection('lunch-dinner')">Déjeuner & Dîner</button>
+        <button class="nav-btn" onclick="scrollToSection('burgers')">Burgers & Plus</button>
+        <button class="nav-btn" onclick="scrollToSection('drinks')">Boissons</button>
+        <button class="nav-btn" onclick="scrollToSection('desserts')">Desserts</button>
+    </nav>
+    <main class="menu-content">
+        <section id="breakfast" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=800&q=80" alt="Petit-déjeuner" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🍳 Petit-déjeuner</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">MAROCAIN</div><div class="item-description">Thé ou café, crêpe marocaine, galette de semoule, fromage, jben, pâte d'amande et argan, petit jus d'orange</div></div><div class="item-price">30 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">SPÉCIAL</div><div class="item-description">Thé ou café, œuf, fromage, jben, mortadelle</div></div><div class="item-price">23 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">FASSI</div><div class="item-description">Thé ou café, viande séchée, œuf, olives, huile d'olive</div></div><div class="item-price">26 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">FASSI COMPLET</div><div class="item-description">Thé ou café, viande séchée, deux œufs, fromage, Kiri, jben, huile d'olive, olives, yaourt, petit jus d'orange, eau minérale</div></div><div class="item-price">45 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">CHAMALI</div><div class="item-description">Thé ou café, œuf, fromage, dinde fumée, mortadelle, jben, huile d'olive, olives, petit jus d'orange</div></div><div class="item-price">30 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">SPÉCIAL COMPLET</div><div class="item-description">Thé ou café, œuf, Kiri, mortadelle, jben, fromage hollandais, huile d'olive, olives, eau minérale, dinde fumée, petit jus d'orange</div></div><div class="item-price">40 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">ANGLAIS</div><div class="item-description">Thé ou café, deux œufs, saucisse, champignons, haricots rouges, tomates cerises, concombre, laitue, olives, fromage</div></div><div class="item-price">49 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">FRANÇAIS</div><div class="item-description">Latte ou thé, croissant, 2 tranches de baguette, yaourt, confiture, beurre, petit jus d'orange</div></div><div class="item-price">35 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">ENFANT</div><div class="item-description">Cornflakes, lait au chocolat, yaourt, fruits</div></div><div class="item-price">18 dh</div></div>
+                <div class="menu-item"><div class="item-details"><div class="item-name-highlight">TOAST À L'AVOCAT</div><div class="item-description">Toasts à l'avocat, œuf sur le dessus, filet d'huile d'olive et assaisonnement</div></div><div class="item-price">20 dh</div></div>
+            </div>
+        </section>
+        <section id="hot-drinks" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80" alt="Boissons Chaudes" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">☕ Boissons Chaudes</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Café</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Espresso</div></div><div class="item-price">14 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Doppio (Double Espresso)</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Cortado</div></div><div class="item-price">14 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Americano</div></div><div class="item-price">14 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Café Latte</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Cappuccino</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Flat White</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Nescafé</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Chocolat Chaud</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Americano Glacé</div></div><div class="item-price">20 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Café Glacé</div><div class="item-description">Chocolat ou caramel</div></div><div class="item-price">22 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Thé</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Thé Marocain à la Menthe</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Thé Noir</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Tisane</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Thé Louisa</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Thé Lipton</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Thé Gingembre & Citron</div></div><div class="item-price">12 dh</div></div>
+                </div>
+            </div>
+        </section>
+        <section id="lunch-dinner" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=800&q=80" alt="Déjeuner & Dîner" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🍕 Déjeuner & Dîner</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Pizza</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Margherita</div></div><div class="item-price">30 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Végétarienne</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Poulet</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Viande Hachée</div></div><div class="item-price">45 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Fruits de Mer</div></div><div class="item-price">50 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Quatre Saisons</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Pâtes</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Spaghetti Sauce Tomate</div></div><div class="item-price">30 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Spaghetti Bolognaise</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Spaghetti au Poulet</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Spaghetti aux Fruits de Mer</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Pasticho</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Pasticho au Poulet</div><div class="item-description">Gratiné au four avec poulet, frites, béchamel et fromage</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Pasticho Viande Hachée</div><div class="item-description">Gratiné au four avec viande hachée, frites, béchamel et fromage</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Pasticho Fruits de Mer</div><div class="item-description">Gratiné au four avec fruits de mer, frites, béchamel et fromage</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Tajine</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Tajine Kefta</div><div class="item-description">Viande hachée assaisonnée, mijotée aux épices aromatiques</div></div><div class="item-price">50 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Tajine Crevettes</div><div class="item-description">Crevettes mijotées dans une sauce tomate aux épices marocaines</div></div><div class="item-price">60 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Tajine Pil Pil</div><div class="item-description">Crevettes à l'ail, épices, persil et huile d'olive</div></div><div class="item-price">70 dh</div></div>
+                </div>
+                <div class="menu-item"><div class="item-details"><div class="item-name">Salade de Fruits</div></div><div class="item-price">35 dh</div></div>
+            </div>
+        </section>
+        <section id="burgers" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80" alt="Burgers" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🍔 Burgers & Plus</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Burgers</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Cheeseburger Classique</div></div><div class="item-price">45 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Double Cheeseburger</div></div><div class="item-price">60 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Burger au Poulet</div></div><div class="item-price">40 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Shawarma</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Shawarma Poulet</div></div><div class="item-price">35 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Panini</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Poulet</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Thon</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Viande hachée</div></div><div class="item-price">30 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Mixte</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Fruits de Mer</div></div><div class="item-price">40 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Tacos</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Poulet</div></div><div class="item-price">35 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Viande hachée</div></div><div class="item-price">40 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Mixte</div></div><div class="item-price">45 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Fruits de Mer</div></div><div class="item-price">50 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Plats</h3>
+                    <div class="plates-grid">
+                        <div class="plate-card"><div class="plate-name">Plat Kefta</div><div class="plate-price">50 dh</div><div class="plate-desc">Kefta grillée avec riz et frites</div></div>
+                        <div class="plate-card"><div class="plate-name">Plat Poulet</div><div class="plate-price">45 dh</div><div class="plate-desc">Poulet grillé avec riz et frites</div></div>
+                        <div class="plate-card"><div class="plate-name">Plat Saucisse</div><div class="plate-price">50 dh</div><div class="plate-desc">Saucisses grillées avec riz et frites</div></div>
+                        <div class="plate-card"><div class="plate-name">Plat Mixte</div><div class="plate-price">60 dh</div><div class="plate-desc">Poulet, kefta, saucisse avec riz et frites</div></div>
+                    </div>
+                </div>
+                <div class="menu-item" style="margin-top:20px"><div class="item-details"><div class="item-name">Frites</div></div><div class="item-price">10 dh</div></div>
+            </div>
+        </section>
+        <section id="drinks" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1534353473418-4cfa6c56fd38?w=800&q=80" alt="Boissons" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🥤 Boissons</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Jus Frais</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus d'Orange</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus de Pomme</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Banane & Pomme</div></div><div class="item-price">18 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus de Banane</div></div><div class="item-price">18 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus d'Avocat</div></div><div class="item-price">20 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus de Citron</div></div><div class="item-price">20 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus Panaché</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus d'Ananas</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Jus de Mangue</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Fruit du Dragon</div></div><div class="item-price">30 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Mojito</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Mojito Virgin</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Mojito Fraise</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Mojito Myrtille</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Mojito Energy Drink</div></div><div class="item-price">35 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Soda & Eau</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Soda</div><div class="item-description">Coca, Coca Light, Sprite, Hawaii, Schweppes</div></div><div class="item-price">12 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Eau Petite</div></div><div class="item-price">3 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Eau Moyenne</div></div><div class="item-price">5 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Eau Grande</div></div><div class="item-price">10 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Eau Gazeuse</div></div><div class="item-price">12 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Boissons Énergisantes</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Boisson Énergisante</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Red Bull</div></div><div class="item-price">30 dh</div></div>
+                </div>
+            </div>
+        </section>
+        <section id="desserts" class="category-section">
+            <div class="category-header">
+                <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=800&q=80" alt="Desserts" class="category-image">
+                <div class="category-overlay"><h2 class="category-title">🥞 Desserts</h2></div>
+            </div>
+            <div class="category-content">
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Crêpes</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Crêpe Classique</div><div class="item-description">Servie avec beurre et miel</div></div><div class="item-price">22 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Crêpe Nutella</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Crêpe Nutella & Banane</div></div><div class="item-price">28 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Crêpe Nutella & Kiwi</div></div><div class="item-price">33 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Gaufres</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Gaufre Classique</div><div class="item-description">Servie avec beurre et miel</div></div><div class="item-price">22 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Gaufre Nutella</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Gaufre Nutella & Banane</div></div><div class="item-price">28 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Pancakes</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Pancake Classique</div><div class="item-description">Servi avec beurre et miel</div></div><div class="item-price">22 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Pancake Nutella</div></div><div class="item-price">25 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Pancake Nutella & Banane</div></div><div class="item-price">28 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Autres Douceurs</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Gâteau</div></div><div class="item-price">15 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Mille-feuille</div></div><div class="item-price">10 dh</div></div>
+                </div>
+                <div class="subcategory">
+                    <h3 class="subcategory-title">Suppléments</h3>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">Oreo</div></div><div class="item-price">5 dh</div></div>
+                    <div class="menu-item"><div class="item-details"><div class="item-name">KitKat</div></div><div class="item-price">5 dh</div></div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="menu-footer">
+        <div class="footer-icons">
+            <a href="https://www.instagram.com/moonlight_chaouen?igsh=MTBudnpqYjVhZWNjcw%3D%3D&utm_source=qr" target="_blank" class="footer-icon" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            <a href="https://g.page/r/Ca-jEK-9Y0lBEBM/review" target="_blank" class="footer-icon" title="Google Review"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></a>
+            <a href="WIFI:T:WPA;S:MOONLIGHT_GUEST;P:FTMH8Unu;;" class="footer-icon" title="WiFi"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg></a>
+        </div>
+        <a href="index.html" class="back-btn">← Changer de Langue</a>
+    </footer>
+    <script>
+        function scrollToSection(id){const s=document.getElementById(id);const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight;window.scrollTo({top:s.offsetTop-h-10,behavior:'smooth'});document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
+        window.addEventListener('scroll',()=>{const ss=document.querySelectorAll('.category-section');const bs=document.querySelectorAll('.nav-btn');const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight+50;let c='';ss.forEach(s=>{if(scrollY>=s.offsetTop-h)c=s.getAttribute('id')});bs.forEach(b=>{b.classList.remove('active');if(b.onclick.toString().includes(c))b.classList.add('active')})})
+    </script>
+</body>
+</html>
