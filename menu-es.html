@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5HS3ECENN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q5HS3ECENN');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moonlight - Menú</title>
@@ -255,5 +263,6 @@ oz y patatas</div></div>
         function scrollToSection(id){const s=document.getElementById(id);const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight;window.scrollTo({top:s.offsetTop-h-10,behavior:'smooth'});document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));event.target.classList.add('active')}
         window.addEventListener('scroll',()=>{const ss=document.querySelectorAll('.category-section');const bs=document.querySelectorAll('.nav-btn');const h=document.querySelector('.category-nav').offsetHeight+document.querySelector('.header').offsetHeight+50;let c='';ss.forEach(s=>{if(scrollY>=s.offsetTop-h)c=s.getAttribute('id')});bs.forEach(b=>{b.classList.remove('active');if(b.onclick.toString().includes(c))b.classList.add('active')})})
     </script>
+<script src="analytics.js"></script>
 </body>
 </html>
