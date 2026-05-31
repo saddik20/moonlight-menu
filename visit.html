@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q5HS3ECENN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Q5HS3ECENN');
+  gtag('event', 'ad_landing', { event_category: 'google_ads', event_label: 'visit_page' });
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Moonlight Café & Restaurant – Chefchaouen</title>
+<meta name="description" content="Rated #1 Restaurant in Chefchaouen · 4.9★ · 350+ Reviews · Directly across from CTM station. Open daily 6AM–12AM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Montserrat:wght@300;400;500;600&family=Noto+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --black: #0a0a0a;
+    --gold: #d4af37;
+    --gold-light: #e8c867;
+    --gold-dark: #b8962e;
+    --cream: #f5f0e6;
+    --surface: #161616;
+    --border: rgba(212,175,55,0.18);
+  }
+
+  html, body {
+    height: 100%;
+    overflow: hidden; /* No scroll */
+  }
+
+  body {
+    background: var(--black);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Background glow */
+  .bg-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-glow::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(212,175,55,0.07) 0%, transparent 40%),
+      radial-gradient(ellipse at 70% 80%, rgba(212,175,55,0.04) 0%, transparent 40%);
+    animation: slowRotate 30s linear infinite;
+  }
+  @keyframes slowRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  /* Main container — fits screen */
+  .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    padding: 20px 20px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+  .moon { font-size: 22px; line-height: 1; }
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--gold);
+    letter-spacing: 0.02em;
+  }
+
+  /* Rating + badge row */
+  .meta-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .stars { color: var(--gold); font-size: 13px; letter-spacing: 1px; }
+  .rating-text { font-size: 12px; color: rgba(245,240,230,0.55); }
+  .rating-num { font-weight: 600; color: var(--gold-light); }
+  .rank-badge {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--black);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .brand-sub {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,230,0.4);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* Divider */
+  .divider {
+    width: 36px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    flex-shrink: 0;
+  }
+
+  /* CTA Buttons */
+  .cta-stack {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-icon { width: 17px; height: 17px; flex-shrink: 0; }
+
+  .btn-directions {
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
+    color: var(--black);
+    box-shadow: 0 3px 18px rgba(212,175,55,0.35);
+    font-weight: 600;
+  }
+  .btn-menu {
+    background: rgba(212,175,55,0.08);
+    color: var(--gold-light);
+    border: 1.5px solid rgba(212,175,55,0.5);
+    font-weight: 600;
+  }
+  .btn-menu:hover {
+    background: rgba(212,175,55,0.14);
+    border-color: var(--gold);
+  }
+  .btn-reviews {
+    background: #fff;
+    color: #3c4043;
+    border: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 11px 16px;
+  }
+  .btn-reviews:hover {
+    background: #f8f8f8;
+  }
+  .g-logo {
+    font-size: 16px;
+    font-weight: 700;
+    font-family: 'Product Sans', 'Montserrat', sans-serif;
+    background: linear-gradient(90deg, #4285F4 0%, #EA4335 25%, #FBBC05 50%, #34A853 75%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  /* Info card */
+  .info-card {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* Main info rows */
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 14px;
+    border-bottom: 1px solid rgba(212,175,55,0.07);
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-icon { font-size: 14px; flex-shrink: 0; width: 18px; text-align: center; }
+  .info-content { flex: 1; }
+  .info-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,230,0.3);
+    margin-bottom: 1px;
+  }
+  .info-val {
+    font-size: 12px;
+    color: rgba(245,240,230,0.82);
+    line-height: 1.4;
+  }
+  .info-val strong { color: var(--cream); font-weight: 500; }
+
+  /* Amenities row — icons only with labels */
+  .amenities {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    border-top: 1px solid rgba(212,175,55,0.07);
+  }
+  .amenity {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 6px;
+    border-right: 1px solid rgba(212,175,55,0.07);
+  }
+  .amenity:last-child { border-right: none; }
+  .amenity-icon { font-size: 16px; }
+  .amenity-label {
+    font-size: 9px;
+    color: rgba(245,240,230,0.4);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* Arabic tagline */
+  .arabic-tag {
+    font-family: 'Noto Sans Arabic', sans-serif;
+    font-size: 11px;
+    color: rgba(245,240,230,0.28);
+    text-align: center;
+    direction: rtl;
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    font-size: 10px;
+    color: rgba(245,240,230,0.15);
+    text-align: center;
+  }
+  .footer a { color: inherit; text-decoration: none; }
+
+  /* Fade-in */
+  .container > * {
+    animation: fadeUp 0.5s ease both;
+  }
+  .container > *:nth-child(1) { animation-delay: 0s; }
+  .container > *:nth-child(2) { animation-delay: 0.05s; }
+  .container > *:nth-child(3) { animation-delay: 0.1s; }
+  .container > *:nth-child(4) { animation-delay: 0.15s; }
+  .container > *:nth-child(5) { animation-delay: 0.2s; }
+  .container > *:nth-child(6) { animation-delay: 0.25s; }
+  .container > *:nth-child(7) { animation-delay: 0.3s; }
+  .container > *:nth-child(8) { animation-delay: 0.35s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="bg-glow"></div>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="moon" style="display:inline-block;transform:scaleX(-1);">🌙</span>
+    <span class="brand">Moonlight</span>
+  </div>
+  <div class="brand-sub">Restaurant &amp; Coffee</div>
+
+  <!-- Rating + #1 badge -->
+  <div class="meta-row">
+    <span class="stars">★★★★★</span>
+    <span class="rating-text"><span class="rating-num">4.9</span> · 350+ reviews</span>
+    <span class="rank-badge">🏆 #1 in Chefchaouen</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CTA Buttons -->
+  <div class="cta-stack">
+    <a class="btn btn-directions"
+       href="https://www.google.com/search?q=moonlight+caf%C3%A9+%26+restaurant+chefchaouen"
+       onclick="gtag('event','click_directions',{event_category:'cta',event_label:'get_directions'})"
+       target="_blank" rel="noopener">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+      </svg>
+      Get Directions
+    </a>
+    <a class="btn btn-menu"
+       href="https://moonlight-chaouen.com"
+       onclick="gtag('event','click_menu',{event_category:'cta',event_label:'view_menu'})">
+      <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 0 2-2h2a2 2 0 0 0 2 2"/>
+        <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+      </svg>
+      View Our Menu
+    </a>
+    <a class="btn btn-reviews"
+       href="https://www.google.com/search?q=moonlight+caf%C3%A9+%26+restaurant+reviews&sca_esv=0c4b2f37cd2bcee3&authuser=5&sxsrf=ANbL-n49GdFlN2gQQRD4iMfye8ch7mLkxQ%3A1780229684325&source=hp&ei=NCYcatKpEZKBkdUP3KfDqQ0&iflsig=AFdpzrgAAAAAahw0ROJhnAxNV9udd8ybDkWFcJhrPZVn&oq=moo&gs_lp=Egdnd3Mtd2l6IgNtb28qAggBMgoQIxiABBiKBRgnMgQQIxgnMgoQIxiABBiKBRgnMgsQABiABBiKBRiRAjIKEAAYgAQYigUYQzIQEC4YQxivARjHARiABBiKBTIKEC4YgAQYigUYQzIKEAAYgAQYigUYQzIFEAAYgAQyBRAAGIAESK8NUABYnQJwAHgAkAEAmAG6AaABjASqAQMwLjO4AQPIAQD4AQGYAgOgApcEwgILEC4YgAQYxwEY0QPCAgUQLhiABJgDAJIHAzAuM6AHtiiyBwMwLjO4B5cEwgcFMC4yLjHIBwaACAE&sclient=gws-wiz#mpd=~15733993406960021967/customers/reviews?p%3DCg51cGRhdGV0aW1lZGVzYxIDYWxs"
+       onclick="gtag('event','click_reviews',{event_category:'cta',event_label:'see_reviews'})"
+       target="_blank" rel="noopener">
+      <span class="g-logo">G</span>
+      See All Reviews on Google
+    </a>
+  </div>
+
+  <!-- Info Card -->
+  <div class="info-card">
+    <div class="info-row">
+      <span class="info-icon">📍</span>
+      <div class="info-content">
+        <div class="info-label">Location</div>
+        <div class="info-val"><strong>Directly across from CTM bus station</strong></div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="info-icon">🕐</span>
+      <div class="info-content">
+        <div class="info-label">Hours</div>
+        <div class="info-val">Open daily · <strong>6:00 AM – 12:00 AM</strong></div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="info-icon">🍽️</span>
+      <div class="info-content">
+        <div class="info-label">We serve</div>
+        <div class="info-val">Moroccan &amp; Western · Breakfast · Lunch · Dinner</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <span class="info-icon">✓</span>
+      <div class="info-content">
+        <div class="info-label">Reservations</div>
+        <div class="info-val">Not required — walk in anytime</div>
+      </div>
+    </div>
+    <!-- Amenities as icon row -->
+    <div class="amenities">
+      <div class="amenity">
+        <span class="amenity-icon">🅿️</span>
+        <span class="amenity-label">Free Parking</span>
+      </div>
+      <div class="amenity">
+        <span class="amenity-icon">📶</span>
+        <span class="amenity-label">Free WiFi</span>
+      </div>
+      <div class="amenity">
+        <span class="amenity-icon">👨‍👩‍👧</span>
+        <span class="amenity-label">Family Friendly</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Arabic tagline -->
+  <div class="arabic-tag">رقم 1 في شفشاون · أمام محطة CTM · مفتوح يومياً من 6 صباحاً · واي فاي مجاني</div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="https://moonlight-chaouen.com">moonlight-chaouen.com</a>
+    &nbsp;·&nbsp;
+    <a href="/privacy.html">Privacy Policy</a>
+  </div>
+
+</div>
+</body>
+</html>
